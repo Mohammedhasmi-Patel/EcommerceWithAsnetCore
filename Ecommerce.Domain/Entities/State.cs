@@ -15,7 +15,7 @@ namespace Ecommerce.Domain.Entities
         // Navigation Properties
         public Country Country { get; set; } = null!;
         public ICollection<City> Cities { get; set; } = new List<City>();
-        //public ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+        public ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
     }
 
 }

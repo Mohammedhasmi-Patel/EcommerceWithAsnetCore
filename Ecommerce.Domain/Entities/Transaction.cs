@@ -27,7 +27,7 @@ namespace Ecommerce.Domain.Entities
 
         // Navigation Properties
         public Order Order { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
     }
 
 }

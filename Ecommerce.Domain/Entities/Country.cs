@@ -14,6 +14,8 @@ namespace Ecommerce.Domain.Entities
         public string PhoneCode { get; set; } = string.Empty;
 
         public ICollection<State> States { get; set; } = new List<State>();
+        public ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+
 
     }
 }
