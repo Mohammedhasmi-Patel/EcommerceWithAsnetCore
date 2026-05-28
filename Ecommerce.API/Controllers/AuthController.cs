@@ -1,5 +1,7 @@
-﻿using Ecommerce.Application.DTO.Auth;
+﻿using Azure;
+using Ecommerce.Application.DTO.Auth;
 using Ecommerce.Application.DTO.Common;
+using Ecommerce.Application.ServicesInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,16 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost("/register")]
-        public async  Task<ApiResponse<string>> RegisterUser(RegisterUserRequest registerUserRequest)
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            return ApiResponse<string>.SuccessResponse("Hello");
+            _authService = authService;
+        }
+        [HttpPost("/register")]
+        public async Task<IActionResult> RegisterUser(RegisterUserRequest registerUserRequest)
+        {
+            var response =  await _authService.RegisterUserService(registerUserRequest);
+            return StatusCode(response.StatusCode, response);
         }
     }
 }

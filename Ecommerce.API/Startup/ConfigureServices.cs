@@ -1,4 +1,8 @@
 ﻿using Ecommerce.Application.DTO.Common;
+using Ecommerce.Application.RepositoryInterface;
+using Ecommerce.Application.Services;
+using Ecommerce.Application.ServicesInterface;
+using Ecommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Startup
@@ -21,6 +25,8 @@ namespace Ecommerce.API.Startup
                     return new BadRequestObjectResult(apiResponse);
                 };
             });
+            service.AddScoped<IAuthService, AuthService>();
+            service.AddScoped<IUserRepository, UserRepository>();
 
             service.AddEndpointsApiExplorer();
             service.AddSwaggerGen();

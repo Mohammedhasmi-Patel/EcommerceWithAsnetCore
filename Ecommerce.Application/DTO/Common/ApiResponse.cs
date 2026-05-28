@@ -33,7 +33,7 @@ namespace Ecommerce.Application.DTO.Common
         /// <summary>
         /// 201 Created - Used when a new resource is successfully created (e.g., POST).
         /// </summary>
-        public static ApiResponse<T> CreatedResponse(T data, string message)
+        public static ApiResponse<T> CreatedResponse(T? data, string message)
         {
             return new ApiResponse<T>()
             {
@@ -66,6 +66,20 @@ namespace Ecommerce.Application.DTO.Common
             {
                 Success = false,
                 StatusCode = 400,
+                Message = message,
+                Data = default
+            };
+        }
+
+        /// <summary>
+        /// 409 Bad Request - Used when the client sends invalid data or a malformed request.
+        /// </summary>
+        public static ApiResponse<T> ConflictResponse(string message = "Conflict")
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                StatusCode = 409,
                 Message = message,
                 Data = default
             };

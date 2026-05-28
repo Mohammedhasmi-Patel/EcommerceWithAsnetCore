@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Ecommerce.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Ecommerce.Domain.Entities
         public string LastName { get; set; } = string.Empty;
         public string? ProfileUrl { get; set; }
         public bool IsActive { get; set; }
-        public string Role { get; set; } = "User"; 
+        public string Role { get; set; } = nameof(UserRole.Customer); 
 
         public string? RefreshToken { get; set; }
         public DateTime? TokenExpiredTime { get; set; }
