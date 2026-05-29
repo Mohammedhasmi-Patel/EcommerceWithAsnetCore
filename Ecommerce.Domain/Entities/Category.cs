@@ -9,6 +9,7 @@ namespace Ecommerce.Domain.Entities
 {
     public class Category : SoftDeletableEntity
     {
+
         public Guid? ParentCategoryId { get; set; }
 
         public string Name { get; set; } = string.Empty;

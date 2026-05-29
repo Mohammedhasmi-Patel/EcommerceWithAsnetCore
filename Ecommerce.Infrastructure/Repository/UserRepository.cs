@@ -26,7 +26,6 @@ namespace Ecommerce.Infrastructure.Repository
         {
             ApplicationUser applicationUser = new ApplicationUser()
             {
-                Id = Guid.NewGuid(),
                 FirstName = registerUserRequest.FirstName,
                 LastName = registerUserRequest.LastName,
                 IsActive = true,
@@ -35,9 +34,7 @@ namespace Ecommerce.Infrastructure.Repository
                 Role = nameof(UserRole.Customer)
             };
 
-            var result = await _userManager.CreateAsync(applicationUser, registerUserRequest.Password);
             return await _userManager.CreateAsync(applicationUser,registerUserRequest.Password);
-
 
         }
 
