@@ -27,6 +27,8 @@ namespace Ecommerce.API.Startup
             });
             service.AddScoped<IAuthService, AuthService>();
             service.AddScoped<IUserRepository, UserRepository>();
+            service.AddScoped<IJwtService, JwtService>();
+
 
             service.AddEndpointsApiExplorer();
             service.AddSwaggerGen();

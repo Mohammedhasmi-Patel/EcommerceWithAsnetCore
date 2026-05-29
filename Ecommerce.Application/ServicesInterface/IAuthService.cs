@@ -11,5 +11,6 @@ namespace Ecommerce.Application.ServicesInterface
     public interface IAuthService
     {
         public Task<ApiResponse<string>> RegisterUserService(RegisterUserRequest registerUserRequest);
+        public Task<ApiResponse<SignInUserResponse>> SignInUserService(SignInUserRequest signInUserRequest);
     }
 }

@@ -12,10 +12,14 @@ namespace Ecommerce.Application.Services
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IJwtService _jwtService;
 
-        public AuthService(IUserRepository userRepository)
+
+
+        public AuthService(IUserRepository userRepository, IJwtService jwtService)
         {
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
         public async Task<ApiResponse<string>> RegisterUserService(RegisterUserRequest registerUserRequest)
         {
@@ -36,6 +40,37 @@ namespace Ecommerce.Application.Services
 
 
             return ApiResponse<string>.CreatedResponse(null,"User created successfully.");
+        }
+
+        public async Task<ApiResponse<SignInUserResponse>> SignInUserService(SignInUserRequest signInUserRequest)
+        {
+            bool isEmailExist = await _userRepository.EmailExistsAsync(signInUserRequest.Email);
+
+            if (!isEmailExist)
+            {
+                return ApiResponse<SignInUserResponse>.UnauthorizedResponse("User not found with this email");
+            }
+
+            ApplicationUser applicationUser = await _userRepository.GetByEmailAsync(signInUserRequest.Email);
+
+            bool isPasswordMatch = await _userRepository.CheckPasswordAsync(applicationUser,signInUserRequest.Password);
+
+            if (!isPasswordMatch)
+            {
+                return ApiResponse<SignInUserResponse>.UnauthorizedResponse("Invalid credentials");
+            }
+
+            JwtTokenResponse jwtTokenResponse = _jwtService.GenerateJwtToken(applicationUser);
+
+            SignInUserResponse response = new SignInUserResponse() { 
+                Token = jwtTokenResponse.Token,
+                ExpirationToken = jwtTokenResponse.TokenExpiration,
+                Avatar = applicationUser.ProfileUrl ?? null,
+                Email = applicationUser.Email,
+                FirstName = applicationUser.FirstName
+            };
+
+            return ApiResponse<SignInUserResponse>.SuccessResponse(response,"User login successfully.");
         }
     }
 }

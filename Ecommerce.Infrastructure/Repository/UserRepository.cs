@@ -22,6 +22,11 @@ namespace Ecommerce.Infrastructure.Repository
             _userManager = userManager;
         }
 
+        public async Task<bool> CheckPasswordAsync(ApplicationUser applicationUser, string password)
+        {
+            return await _userManager.CheckPasswordAsync(applicationUser,password);
+        }
+
         public async Task<IdentityResult> CreateUserAsync(RegisterUserRequest registerUserRequest)
         {
             ApplicationUser applicationUser = new ApplicationUser()
@@ -41,6 +46,11 @@ namespace Ecommerce.Infrastructure.Repository
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _userManager.Users.AnyAsync(u => u.Email == email);
+        }
+
+        public async Task<ApplicationUser?> GetByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
     }
 }

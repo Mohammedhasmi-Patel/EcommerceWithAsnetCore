@@ -22,5 +22,13 @@ namespace Ecommerce.API.Controllers
             var response =  await _authService.RegisterUserService(registerUserRequest);
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpPost("/login")]
+
+        public async Task<IActionResult> SignInUser(SignInUserRequest signInUserRequest)
+        {
+            var response = await _authService.SignInUserService(signInUserRequest);
+            return StatusCode(response.StatusCode,response);
+        }
     }
 }

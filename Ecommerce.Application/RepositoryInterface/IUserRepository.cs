@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.DTO.Auth;
+using Ecommerce.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,9 @@ namespace Ecommerce.Application.RepositoryInterface
         public Task<bool> EmailExistsAsync(string email);
 
         public Task<IdentityResult> CreateUserAsync(RegisterUserRequest registerUserRequest);
+
+        public Task<bool> CheckPasswordAsync(ApplicationUser applicationUser,string password);
+
+        public Task<ApplicationUser?> GetByEmailAsync(string email);
     }
 }
